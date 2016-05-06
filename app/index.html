@@ -1,4 +1,4 @@
-<html lang="en" ng-app="issueTracker" class="ng-cloak">
+<html lang="en" ng-app="issueTracker" ng-cloak>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body cz-shortcut-listen="true" ng-controller="MainCtrl">
+<body cz-shortcut-listen="true" ng-controller="MainCtrl" >
+
     <div class="navbar navbar-default navbar-fixed-top">
+
         <div class="container">
             <div class="navbar-header">
                 <a href="#/" class="navbar-brand">Issue Tracking System</a>
@@ -50,19 +52,27 @@
         <div ng-view />
     </div>
 
-    <div data-footer></div>
+
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/noty/js/noty/jquery.noty.js"></script>
+
 
     <script src="app.js"></script>
 
-    <script src="services/auth-service.js"></script>
+    <script src="services/authentication.js"></script>
+    <script src="services/users.js"></script>
+    <script src="services/notifier.js"></script>
 
-    <script src="controllers/authentication.js"></script>
+    <script src="controllers/main-controller.js"></script>
+    <script src="controllers/home-controller.js"></script>
+
+
+    <script src="directives/templates-directives.js"></script>
 
  </body>
 </html>

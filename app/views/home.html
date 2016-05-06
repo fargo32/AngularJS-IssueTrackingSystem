@@ -1,0 +1,10 @@
+<div class="jumbotron container" ng-if="!isAuthenticated()">
+    <div class="col-md-3 col-md-offset-2 border">
+        <div ng-login-user-form></div>
+    </div>
+
+    <div class="col-md-3 col-md-offset-2 border">
+        <div ng-register-user-form></div>
+    </div>
+</div>
+<div ng-dashboard></div>

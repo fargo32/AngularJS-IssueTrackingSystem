@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('issueTracker.notificationService', [])
+angular.module('issueTracker.services.notifier', [])
     .factory('notificationService',
         function () {
             return {
-                showInfo: function (msg) {
+                showSuccess: function (msg) {
                     noty({
                             text: msg,
                             type: 'info',
@@ -14,7 +14,6 @@ angular.module('issueTracker.notificationService', [])
                     );
                 },
                 showError: function (msg, serverError) {
-                    // Collect errors to display from the server response
                     var errors = [];
                     if (serverError && serverError.error_description) {
                         errors.push(serverError.error_description);
