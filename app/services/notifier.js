@@ -1,25 +1,30 @@
 'use strict';
 
 angular.module('issueTracker.services.notifier', [])
-    .factory('notificationService',
+    .factory('notificationService', [
         function () {
             return {
                 showSuccess: function (msg) {
                     noty({
+                            theme: 'relax',
                             text: msg,
-                            type: 'info',
+                            type: 'information',
                             layout: 'topCenter',
-                            timeout: 1000
+                            timeout: 3000,
+                            closeWith: ['click']
                         }
                     );
                 },
                 showError: function (msg, serverError) {
                     var errors = [];
-                    if (serverError && serverError.error_description) {
-                        errors.push(serverError.error_description);
+                    if (serverError && serverError.data.error_description) {
+                        errors.push(serverError.data.error_description);
                     }
-                    if (serverError && serverError.modelState) {
-                        var modelStateErrors = serverError.modelState;
+                    if (serverError && serverError.data.Message) {
+                        errors.push(serverError.data.Message);
+                    }
+                    if (serverError && serverError.data.ModelState) {
+                        var modelStateErrors = serverError.data.ModelState;
                         for (var propertyName in modelStateErrors) {
                             var errorMessages = modelStateErrors[propertyName];
                             var trimmedName =
@@ -34,15 +39,17 @@ angular.module('issueTracker.services.notifier', [])
                         msg = msg + ":<br>" + errors.join("<br>");
                     }
                     noty({
+                            theme: 'relax',
                             text: msg,
                             type: 'error',
                             layout: 'topCenter',
-                            timeout: 5000
+                            timeout: 5000,
+                            closeWith: ['click']
                         }
                     );
                 }
             }
         }
-    );
+    ]);
 
 

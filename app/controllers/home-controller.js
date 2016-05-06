@@ -21,16 +21,16 @@ angular.module('issueTracker.controllers.home', [])
             $scope.register = function (userData) {
                 authentication.registerUser(userData)
                     .then(function success() {
-                        notificationService.showSuccess('Successful registration!')
+                        //notificationService.showSuccess('Successful registration!')
                         $scope.login(userData)
                     }, function (err) {
-                        notificationService.showError('Failed to register!', err)
+                        //notificationService.showError('Failed to register!', err)
                     });
             };
 
             $scope.login = function (userData) {
                 authentication.loginUser(userData)
-                    .then(function success(userData) {
+                    .then(function success() {
 
                         //todo $scope.getUserIssues();
                         notificationService.showSuccess('You have been logged in successfully!');

@@ -39,9 +39,9 @@
 
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="http://builtwithbootstrap.com/" target="_blank">Profile/Change pass</a></li>
-                    <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">Logout</a></li>
+                <ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
+                    <li><a href="#/profile/password">Change password</a></li>
+                    <li ng-click="logout()"><a href="#/logout">Logout</a></li>
                 </ul>
 
             </div>
@@ -53,14 +53,12 @@
     </div>
 
 
-
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/noty/js/noty/jquery.noty.js"></script>
-
+    <script src="bower_components/noty/js/noty/packaged/jquery.noty.packaged.js"></script>
 
     <script src="app.js"></script>
 

@@ -1,10 +1,15 @@
 'use strict';
 
 angular.module('issueTracker.services.users', [])
-    .factory('users', ['$http', '$q', 'BASE_URL', function ($http, $q, BASE_URL) {
-        function getAllUsers() {
-            var deffered = $q.defer(),
-                req = {
+    .factory('users', [
+        '$http',
+        '$q',
+        'BASE_URL',
+        function ($http, $q, BASE_URL) {
+            function getAllUsers() {
+                var deferred = $q.defer();
+
+                var req = {
                     method: 'GET',
                     url: BASE_URL + 'users',
                     headers: {
@@ -12,17 +17,17 @@ angular.module('issueTracker.services.users', [])
                     }
                 };
 
-            $http(req)
-                .then(function success(response) {
-                    deferred.resolve(response.data);
-                }, function error(err) {
-                    deferred.reject(err);
-                });
+                $http(req)
+                    .then(function success(response) {
+                        deferred.resolve(response.data);
+                    }, function error(err) {
+                        deferred.reject(err);
+                    });
 
-            return deferred.promise;
-        }
+                return deferred.promise;
+            }
 
-        return {
-            getAllUsers: getAllUsers
-        }
-    }]);
+            return {
+                getAllUsers: getAllUsers
+            }
+        }]);

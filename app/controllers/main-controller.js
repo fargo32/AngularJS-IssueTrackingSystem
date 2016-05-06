@@ -4,7 +4,7 @@ angular.module('issueTracker.controllers.mainCtrl', [])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/profile/password', {
-                templateUrl: 'app/views/partials/change-password.html',
+                templateUrl: 'views/partials/change-password.html',
                 controller: 'MainCtrl',
                 access: {
                     requiresLogin: true
@@ -35,7 +35,7 @@ angular.module('issueTracker.controllers.mainCtrl', [])
                         notificationService.showSuccess('User logged out successfully');
                         $location.path('/');
                     }, function error(err) {
-                        notificationService.showError('Unsuccessful logout', err);
+                        notificationService.showError('Logout failed :(', err);
                     });
             };
 
