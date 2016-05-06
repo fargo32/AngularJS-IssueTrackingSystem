@@ -4,6 +4,7 @@ angular.module('issueTracker', [
         'ngRoute',
         'ngResource',
         'issueTracker.controllers.mainCtrl',
+        'issueTracker.controllers.home',
         'issueTracker.services.authentication',
         'issueTracker.services.users',
         'issueTracker.services.notifier',

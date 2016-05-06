@@ -2,8 +2,8 @@
 
 angular.module('issueTracker.controllers.home', [])
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('#/', {
-            templateUrl: 'app/views/home.html',
+        $routeProvider.when('/', {
+            templateUrl: 'views/home.html',
             controller: 'HomeController',
             access: {
                 requiresLogin: true
