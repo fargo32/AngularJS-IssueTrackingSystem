@@ -8,6 +8,7 @@ angular.module('issueTracker', [
         'issueTracker.services.authentication',
         'issueTracker.services.users',
         'issueTracker.services.notifier',
+        'issueTracker.services.issues',
         'issueTracker.directives.templates'
     ])
 
@@ -17,7 +18,8 @@ angular.module('issueTracker', [
         })
     }])
 
-    .constant('BASE_URL', ' http://softuni-issue-tracker.azurewebsites.net/')
+    .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/')
+    .constant('PAGE_SIZE', 5)
     .run([
         '$rootScope',
         '$location',

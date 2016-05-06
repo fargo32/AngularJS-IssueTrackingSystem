@@ -15,29 +15,49 @@ angular.module('issueTracker.controllers.home', [])
         '$scope',
         'authentication',
         'notificationService',
+        'issues',
         '$location',
-        function ($scope, authentication, notificationService, $location) {
+        'PAGE_SIZE',
+        function ($scope, authentication, notificationService, issues, $location, PAGE_SIZE) {
+
+            $scope.issuesParams = {
+                pageSize: PAGE_SIZE,
+                pageNumber: 1
+            };
 
             $scope.register = function (userData) {
                 authentication.registerUser(userData)
                     .then(function success() {
-                        //notificationService.showSuccess('Successful registration!')
+                        notificationService.showSuccess('Successful registration!')
                         $scope.login(userData)
                     }, function (err) {
-                        //notificationService.showError('Failed to register!', err)
+                        notificationService.showError('Failed to register!', err)
                     });
             };
 
             $scope.login = function (userData) {
                 authentication.loginUser(userData)
                     .then(function success() {
-
-                        //todo $scope.getUserIssues();
+                        $scope.getUserAssignedIssues();
                         notificationService.showSuccess('You have been logged in successfully!');
                     }, function error(err) {
                         notificationService.showError('Login failed!', err);
                     });
             };
 
-            //todo $scope.getUserIssues
+            $scope.getUserAssignedIssues = function(predicate) {
+                var criteria = predicate || 'DueDate';
+
+                if(authentication.isAuthenticated()) {
+                    issues.getUserAssignedIssues(criteria, $scope.issuesParams)
+                        .then(function success(data) {
+                            $scope.userIssues = data.Issues;
+                            $scope.userIssuesCount = data.TotalPages * $scope.issuesParams.pageSize;
+                        }, function error(err) {
+                            notifyService.showError('Unable to get issues', err);
+                        });
+                }
+            };
+
+            $scope.getUserAssignedIssues();
         }]);
