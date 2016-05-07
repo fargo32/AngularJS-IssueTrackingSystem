@@ -1,26 +1,35 @@
-<div class="modal-forms">
-    <form name="addNewProjectForm">
-        <label for="projectName">Name </label>
-        <input type="text" ng-minlength="3" required ng-model="project.Name" id="projectName" class="form-control" >
-        <label for="projectDescription">Description </label>
-        <textarea required ng-minlength="1" ng-model="project.Description" id="projectDescription" class="form-control" ></textarea>
-        <label for="projectKey">Prokect key </label>
-        <input type="text"  required ng-model="project.ProjectKey" id="projectKey" class="form-control" >
-        <label for="projectLead">Lead </label>
-        <select required id="projectLead" class="form-control" ng-model="project.Lead" ng-options="user.Username for user in usersForLeads|orderBy:'Username'"></select>
-        <label for="projectPriorities">Priorities </label>
-        <input type="text" required ng-model="project.Priorities" id="projectPriorities" class="form-control" >
-        <label for="projectLabels">Labels </label>
-        <input type="text" uib-typeahead="label.Name for label in allLabels | filter:$viewValue" ng-model="label" id="projectLabels" class="form-control">
-        <br>
-        <button ng-click="addLabel(label)" class="btn-warning">Add label</button>
-        <br>
-        <br>
-        <span>Labels: </span>
-        <span class="labels-wrapper" ng-repeat="currentLabel in currentLabels">{{currentLabel.Name}}</span>
-        <br>
-        <br>
-        <button class="btn btn-primary" ng-disabled="addNewProjectForm.$invalid"  ng-click="addNewProject(project)">Create project</button>
-        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+<div class="page-header">
+    <h2>New project</h2>
+</div>
+<div class="jumbotron container">
+    <form name="addProjectForm">
+        <div class="form-group">
+            <label for="projectName">Name</label>
+            <input type="text" class="form-control" id="projectName" ng-model="project.name" placeholder="name" required />
+        </div>
+        <div class="form-group">
+            <label for="projectLeader">Leader</label>
+            <select class="form-control" id="projectLeader" ng-model="project.leadId">
+                <option value="">Choose leader of the project</option>
+                <option ng-repeat="user in users" value="{{user.Id}}">{{user.Username}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="projectKey">Project key</label>
+            <input type="text" class="form-control" id="projectKey" ng-model="project.key" placeholder="key" required />
+        </div>
+        <div class="form-group">
+            <label for="projectPriorities">Priorities (comma separated)</label>
+            <input type="text" class="form-control" id="projectPriorities" ng-model="project.priorities" placeholder="priorities" />
+        </div>
+        <div class="form-group">
+            <label for="projectLabels">Labels (comma separated)</label>
+            <input type="text" class="form-control" id="projectLabels" ng-model="project.labels" placeholder="labels" />
+        </div>
+        <div class="form-group">
+            <label for="projectDescription">Description</label>
+            <textarea class="form-control" id="projectDescription" ng-model="project.description" placeholder="description" required></textarea>
+        </div>
+        <button class="btn btn-primary" ng-disabled="addProjectForm.$invalid" ng-click="addProject(project)">Add project</button>
     </form>
 </div>

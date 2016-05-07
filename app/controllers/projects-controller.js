@@ -49,7 +49,7 @@ angular.module('issueTracker.controllers.projects', [])
             $scope.allUsers();
 
             $scope.addProject = function (project) {
-                projectsService.addProject(project)
+                projectsService.addNewProject(project)
                     .then(function success(data) {
                         $location.path('projects/' + data.Id);
                     }, function error(err) {
