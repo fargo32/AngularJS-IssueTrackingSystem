@@ -38,6 +38,13 @@ angular.module('issueTracker.controllers.projects', [])
                     requiresAdmin: true
                 }
             })
+            .when('/projects/:id/add-issue', {
+                templateUrl: 'views/issues/add-issue.html',
+                controller: 'AddIssueToProjectController',
+                access: {
+                    requiresAdmin: true
+                }
+            })
 
     }])
 
@@ -124,7 +131,7 @@ angular.module('issueTracker.controllers.projects', [])
                     data.Labels.forEach(function (l) {
                         $scope.currentProjectLabels.push(l.Name);
                     });
-            console.log($scope.currentProjectLabels);
+
             console.log($scope.currentProject);
 
                     data.Priorities.forEach(function (p) {
@@ -146,7 +153,6 @@ angular.module('issueTracker.controllers.projects', [])
         function ($scope, $routeParams, projectsService, notificationService, $location) {
 
             $scope.allUsers();
-
 
             projectsService.getProjectById($routeParams.id)
                 .then(function success(data) {
@@ -195,4 +201,43 @@ angular.module('issueTracker.controllers.projects', [])
                 return str.split(',');
             }
         }])
+
+    .controller('AddIssueToProjectController', [
+        '$scope',
+        '$routeParams',
+        'projectsService',
+        'notificationService',
+        '$location',
+        function ($scope, $routeParams, projectsService, notificationService, $location) {
+
+            $scope.allUsers();
+
+            projectsService.getProjectById($routeParams.id)
+                .then(function success(data) {
+                    $scope.projectPriorities = data.Priorities;
+                }, function error(err) {
+                    notificationService.showError('Unable to get project', err);
+                });
+
+            $scope.addIssueToProject = function(issueToAdd) {
+
+                var issueToSend = {
+                    Title: issueToAdd.Title,
+                    Description: issueToAdd.Description,
+                    DueDate: issueToAdd.DueDate,
+                    ProjectId: $routeParams.id,
+                    AssigneeId: issueToAdd.AssigneeId,
+                    PriorityId: issueToAdd.PriorityId,
+                    Labels: issueToAdd.Labels.split(',')
+                };
+
+                projectsService.addIssueToProject(issueToSend)
+                    .then(function success(data) {
+                        $location.path('projects/' + data.Project.Id)
+                    }, function error(err) {
+                        notificationService.showError('Unable to add issue', err);
+                    });
+            };
+        }])
+
 ;

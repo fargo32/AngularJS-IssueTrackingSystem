@@ -56,4 +56,6 @@ angular.module('issueTracker.controllers.issues', [])
 
 
             //todo EditController
-        }]);
+        }])
+
+;
