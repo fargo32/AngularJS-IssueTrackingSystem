@@ -33,8 +33,9 @@
                     <li>
                         <a href="#/">Dashboard</a>
                     </li>
+                    <li class="active" ng-if="isAuthenticated()"><a href="#/projects/my">My projects</a></li>
                     <li>
-                        <a href="#/">Projects</a>
+                        <a href="#/projects">Projects</a>
                     </li>
 
                 </ul>
@@ -60,16 +61,23 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/noty/js/noty/packaged/jquery.noty.packaged.js"></script>
 
+
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+
+
     <script src="app.js"></script>
 
     <script src="services/authentication.js"></script>
     <script src="services/users.js"></script>
     <script src="services/notifier.js"></script>
     <script src="services/issues.js"></script>
+    <script src="services/projects.js"></script>
 
 
     <script src="controllers/main-controller.js"></script>
     <script src="controllers/home-controller.js"></script>
+    <script src="controllers/issues-controller.js"></script>
+    <script src="controllers/projects-controller.js"></script>
 
 
     <script src="directives/templates-directives.js"></script>

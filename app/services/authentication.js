@@ -51,17 +51,17 @@ angular.module('issueTracker.services.authentication', [])
                             url: baseUrl + 'users/me',
                             headers: { Authorization: 'Bearer ' + userData.access_token }
                         };
-
+                console.log(userData);
                         $http(userInfoReq)
                             .then(function success(data) {
                                 userData.isAdmin = data.data.isAdmin;
                                 userData.Id = data.data.Id;
+                                   // userData.tokenData = data.data['token_type'];
                                 sessionStorage['currentUser'] = JSON.stringify(userData);
                                 deferred.resolve(data);
                             }, function error(err) {
                                 deferred.reject(err);
                             });
-
                     }, function error(err) {
                         deferred.reject(err);
                     });
@@ -88,6 +88,8 @@ angular.module('issueTracker.services.authentication', [])
                         deferred.reject(err);
                     });
 
+                sessionStorage.clear();
+
                 return deferred.promise;
             }
 
@@ -99,6 +101,12 @@ angular.module('issueTracker.services.authentication', [])
             }
 
             function changePassword(user) {
+
+                if (user.newPassword != user.newPasswordConfirm) {
+                    console.error('Passwords do not match.');
+                    return;
+                }
+
                 var deferred = $q.defer(),
                     currentUser = getUser(),
                     data = 'OldPassword=' + user.oldPassword +

@@ -1,0 +1,26 @@
+<div class="modal-forms">
+    <form name="addNewProjectForm">
+        <label for="projectName">Name </label>
+        <input type="text" ng-minlength="3" required ng-model="project.Name" id="projectName" class="form-control" >
+        <label for="projectDescription">Description </label>
+        <textarea required ng-minlength="1" ng-model="project.Description" id="projectDescription" class="form-control" ></textarea>
+        <label for="projectKey">Prokect key </label>
+        <input type="text"  required ng-model="project.ProjectKey" id="projectKey" class="form-control" >
+        <label for="projectLead">Lead </label>
+        <select required id="projectLead" class="form-control" ng-model="project.Lead" ng-options="user.Username for user in usersForLeads|orderBy:'Username'"></select>
+        <label for="projectPriorities">Priorities </label>
+        <input type="text" required ng-model="project.Priorities" id="projectPriorities" class="form-control" >
+        <label for="projectLabels">Labels </label>
+        <input type="text" uib-typeahead="label.Name for label in allLabels | filter:$viewValue" ng-model="label" id="projectLabels" class="form-control">
+        <br>
+        <button ng-click="addLabel(label)" class="btn-warning">Add label</button>
+        <br>
+        <br>
+        <span>Labels: </span>
+        <span class="labels-wrapper" ng-repeat="currentLabel in currentLabels">{{currentLabel.Name}}</span>
+        <br>
+        <br>
+        <button class="btn btn-primary" ng-disabled="addNewProjectForm.$invalid"  ng-click="addNewProject(project)">Create project</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </form>
+</div>

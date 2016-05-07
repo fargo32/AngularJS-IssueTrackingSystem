@@ -3,12 +3,16 @@
 angular.module('issueTracker', [
         'ngRoute',
         'ngResource',
+    'ngStorage',
         'issueTracker.controllers.mainCtrl',
         'issueTracker.controllers.home',
+        'issueTracker.controllers.projects',
+        'issueTracker.controllers.issues',
         'issueTracker.services.authentication',
         'issueTracker.services.users',
         'issueTracker.services.notifier',
         'issueTracker.services.issues',
+        'issueTracker.services.projects',
         'issueTracker.directives.templates'
     ])
 

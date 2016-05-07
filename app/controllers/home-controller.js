@@ -14,11 +14,12 @@ angular.module('issueTracker.controllers.home', [])
     .controller('HomeController', [
         '$scope',
         'authentication',
+        'usersService',
         'notificationService',
-        'issues',
+        'issuesService',
         '$location',
         'PAGE_SIZE',
-        function ($scope, authentication, notificationService, issues, $location, PAGE_SIZE) {
+        function ($scope, authentication, usersService, notificationService, issuesService, $location, PAGE_SIZE) {
 
             $scope.issuesParams = {
                 pageSize: PAGE_SIZE,
@@ -35,6 +36,7 @@ angular.module('issueTracker.controllers.home', [])
                     });
             };
 
+
             $scope.login = function (userData) {
                 authentication.loginUser(userData)
                     .then(function success() {
@@ -45,16 +47,16 @@ angular.module('issueTracker.controllers.home', [])
                     });
             };
 
-            $scope.getUserAssignedIssues = function(predicate) {
+            $scope.getUserAssignedIssues = function (predicate) {
                 var criteria = predicate || 'DueDate';
 
-                if(authentication.isAuthenticated()) {
-                    issues.getUserAssignedIssues(criteria, $scope.issuesParams)
+                if (authentication.isAuthenticated()) {
+                    issuesService.getUserAssignedIssues(criteria, $scope.issuesParams)
                         .then(function success(data) {
                             $scope.userIssues = data.Issues;
                             $scope.userIssuesCount = data.TotalPages * $scope.issuesParams.pageSize;
                         }, function error(err) {
-                            notifyService.showError('Unable to get issues', err);
+                            notificationService.showError('Unable to get issues', err);
                         });
                 }
             };

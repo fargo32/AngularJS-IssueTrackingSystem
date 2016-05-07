@@ -15,9 +15,9 @@ angular.module('issueTracker.controllers.mainCtrl', [])
         '$scope',
         '$location',
         'authentication',
-        'users',
+        'usersService',
         'notificationService',
-        function($scope, $location, authentication, users, notificationService) {
+        function($scope, $location, authentication, usersService, notificationService) {
 
             $scope.isAuthenticated = function() {
                 return authentication.isAuthenticated();
@@ -27,11 +27,9 @@ angular.module('issueTracker.controllers.mainCtrl', [])
                 return authentication.isAdmin();
             };
 
-
             $scope.logout = function() {
                 authentication.logoutUser()
                     .then(function success() {
-                        sessionStorage.clear();
                         notificationService.showSuccess('User logged out successfully');
                         $location.path('/');
                     }, function error(err) {
@@ -50,7 +48,7 @@ angular.module('issueTracker.controllers.mainCtrl', [])
             };
 
             $scope.allUsers = function() {
-                users.getAllUsers()
+                usersService.getAllUsers()
                     .then(function success(response) {
                         $scope.users = response;
                     }, function error(err) {
