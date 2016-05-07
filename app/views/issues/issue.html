@@ -5,7 +5,7 @@
     <div id="issue-info">
         <div class="col-md-6">
             <span class="key"><strong>{{currentIssue.IssueKey}}</strong></span>
-            <a href="#issues/edit/{{currentIssue.Id}}" class="btn btn-success" ng-if="isAdmin() || isLeadOfProject" role="button">Edit</a>
+            <a href="#issues/{{currentIssue.Id}}/edit" class="btn btn-success" ng-if="isAdmin() || isLeadOfProject" role="button">Edit</a>
             <a href="#projects/{{currentIssue.Project.Id}}" class="btn btn-success" role="button">Back to project</a>
             <p><strong>Title: </strong>{{currentIssue.Title}}</p>
             <p><strong>Description: </strong>{{currentIssue.Description}}</p>
