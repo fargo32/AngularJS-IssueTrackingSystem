@@ -13,6 +13,7 @@
     "html5-boilerplate": "~5.2.0",
     "bootstrap": "^3.3.6",
     "jquery": "^2.2.3",
-    "noty": "^2.3.8"
+    "noty": "^2.3.8",
+    "angular-ui-bootstrap-pagination": "^0.12.0"
   }
 }
