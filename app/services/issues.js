@@ -86,9 +86,31 @@ angular.module('issueTracker.services.issues', [])
                 return deferred.promise;
             }
 
+            function changeStatus(issueId, statusId) {
+                var deferred = $q.defer();
+
+                var req = {
+                    method: 'PUT',
+                    url: BASE_URL + 'issues/' + issueId + '/changestatus?statusid=' + statusId,
+                    headers: {
+                        'Authorization': 'Bearer ' + JSON.parse(sessionStorage['currentUser']).access_token,
+                    }
+                };
+
+                $http(req)
+                    .then(function success(response) {
+                        deferred.resolve(response);
+                    }, function error() {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+
             return {
                 getUserAssignedIssues: getUserAssignedIssues,
                 editIssue: editIssue,
-                getIssueById: getIssueById
+                getIssueById: getIssueById,
+                changeStatus: changeStatus
             }
         }]);

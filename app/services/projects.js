@@ -48,6 +48,8 @@ angular.module('issueTracker.services.projects', [])
                     dataLabels + dataPriorities +
                     '&LeadId=' + project.leadId;
 
+            console.log(data);
+
                 var req = {
                     method: 'POST',
                     url: BASE_URL + 'projects',

@@ -125,14 +125,13 @@ angular.module('issueTracker.controllers.projects', [])
                     } else {
                         $scope.isLeadOfProject = false;
                     }
+
                     $scope.currentProjectLabels = [];
                     $scope.currentProjectPriorities = [];
 
                     data.Labels.forEach(function (l) {
                         $scope.currentProjectLabels.push(l.Name);
                     });
-
-            console.log($scope.currentProject);
 
                     data.Priorities.forEach(function (p) {
                         $scope.currentProjectPriorities.push(p.Name);
@@ -141,7 +140,25 @@ angular.module('issueTracker.controllers.projects', [])
                     notificationService.showError('Unable to get project', err);
                 });
 
+            projectsService.getIssuesByProjectId(($routeParams.id))
+                .then(function success(issuesData) {
+                    $scope.currentProjectIssues = issuesData;
+                    $scope.currentProjectIssuesAssignees = [];
+                    $scope.currentProjectIssuesPriorities = []
 
+                    issuesData.forEach(function (issue) {
+
+                        if ($scope.currentProjectIssuesAssignees.indexOf(issue.Assignee.Username) === -1) {
+                            $scope.currentProjectIssuesAssignees.push(issue.Assignee.Username);
+                        }
+
+                        if ($scope.currentProjectIssuesPriorities.indexOf(issue.Priority.Name) === -1) {
+                            $scope.currentProjectIssuesPriorities.push(issue.Priority.Name);
+                        }
+                    });
+                }, function error(err) {
+                    notificationService.showError('Unable to get issues', err);
+                });
         }])
 
     .controller('EditProjectController', [
@@ -219,7 +236,7 @@ angular.module('issueTracker.controllers.projects', [])
                     notificationService.showError('Unable to get project', err);
                 });
 
-            $scope.addIssueToProject = function(issueToAdd) {
+            $scope.addIssueToProject = function (issueToAdd) {
 
                 var issueToSend = {
                     Title: issueToAdd.Title,

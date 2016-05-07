@@ -21,4 +21,11 @@ angular.module('issueTracker.directives.templates', [])
             restrict: 'A',
             templateUrl: 'views/partials//register.html'
         }
+    }])
+
+    .directive('ngIssueFilter', [function() {
+        return {
+            restrict: 'A',
+            templateUrl: 'views/issues/issue-filter.html'
+        }
     }]);

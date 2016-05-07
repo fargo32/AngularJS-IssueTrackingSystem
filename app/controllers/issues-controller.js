@@ -60,8 +60,6 @@ angular.module('issueTracker.controllers.issues', [])
             //todo Add status and comments
 
 
-            //todo EditController
-
             $scope.getIssueById();
         }])
 
