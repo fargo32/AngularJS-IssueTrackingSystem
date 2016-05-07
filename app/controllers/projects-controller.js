@@ -31,6 +31,13 @@ angular.module('issueTracker.controllers.projects', [])
                     requiresAdmin: true
                 }
             })
+            .when('/projects/:id/edit', {
+                templateUrl: 'views/projects/edit-project.html',
+                controller: 'EditProjectController',
+                access: {
+                    requiresAdmin: true
+                }
+            })
 
     }])
 
@@ -103,22 +110,22 @@ angular.module('issueTracker.controllers.projects', [])
 
             projectsService.getProjectById($routeParams.id)
                 .then(function success(data) {
+
                     $scope.currentProject = data;
-    console.log(data);
+
                     if (data.Lead.Id === JSON.parse(sessionStorage['currentUser']).Id) {
                         $scope.isLeadOfProject = true;
                     } else {
                         $scope.isLeadOfProject = false;
                     }
-    console.log($scope.isLeadOfProject);
                     $scope.currentProjectLabels = [];
                     $scope.currentProjectPriorities = [];
 
                     data.Labels.forEach(function (l) {
                         $scope.currentProjectLabels.push(l.Name);
                     });
-                    console.log($scope.currentProjectLabels);
-                    console.log($scope.currentProject);
+            console.log($scope.currentProjectLabels);
+            console.log($scope.currentProject);
 
                     data.Priorities.forEach(function (p) {
                         $scope.currentProjectPriorities.push(p.Name);
@@ -128,4 +135,64 @@ angular.module('issueTracker.controllers.projects', [])
                 });
 
 
-        }]);
+        }])
+
+    .controller('EditProjectController', [
+        '$scope',
+        '$routeParams',
+        'projectsService',
+        'notificationService',
+        '$location',
+        function ($scope, $routeParams, projectsService, notificationService, $location) {
+
+            $scope.allUsers();
+
+
+            projectsService.getProjectById($routeParams.id)
+                .then(function success(data) {
+
+                    $scope.currentProject = data;
+
+                    $scope.currentProjectLabels = [];
+                    $scope.currentProjectPriorities = [];
+
+                    data.Labels.forEach(function (l) {
+                        $scope.currentProjectLabels.push(l.Name);
+                    });
+
+                    data.Priorities.forEach(function (p) {
+                        $scope.currentProjectPriorities.push(p.Name);
+                    });
+                }, function error(err) {
+                    notificationService.showError('Unable to get project', err);
+                });
+
+            $scope.editProject = function () {
+                if (typeof $scope.currentProjectLabels === 'string') {
+                    $scope.currentProjectLabels = getArrayOfStrings($scope.currentProjectLabels);
+                }
+                if (typeof $scope.currentProjectPriorities === 'string') {
+                    $scope.currentProjectPriorities = getArrayOfStrings($scope.currentProjectPriorities);
+                }
+
+                var projectForEdit = {
+                    Name: $scope.currentProject.Name,
+                    Description: $scope.currentProject.Description,
+                    Priorities: $scope.currentProjectPriorities,
+                    Labels: $scope.currentProjectLabels,
+                    LeadId: $scope.currentProject.Lead.Id
+                };
+
+                projectsService.editProject(projectForEdit, $routeParams.id)
+                    .then(function success(data) {
+                        $location.path('projects/' + data.Id)
+                    }, function error(err) {
+                        notificationService.showError('Unable to edit project', err);
+                    });
+            };
+
+            function getArrayOfStrings(str) {
+                return str.split(',');
+            }
+        }])
+;
