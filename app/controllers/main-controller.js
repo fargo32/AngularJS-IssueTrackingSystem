@@ -19,7 +19,7 @@ angular.module('issueTracker.controllers.mainCtrl', [])
         'notificationService',
         function($scope, $location, authentication, usersService, notificationService) {
 
-            $scope.loggedUserUsername = function() {
+            $scope.currentUserData = function() {
               return authentication.getCurrentUser();
             };
 

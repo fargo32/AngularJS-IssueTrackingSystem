@@ -17,7 +17,8 @@
 
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" ng-cloack ng-show="isAuthenticated()">Hello {{loggedUserUsername().userName}}</a>
+                <a class="navbar-brand" ng-show="isAuthenticated()">Hello {{currentUserData().userName}}</a>
+                <a class="navbar-brand" ng-hide="isAuthenticated()">Welcome to SoftUni Issue Tracker System</a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -26,16 +27,15 @@
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="active" ng-show="isAuthenticated()" >
                         <a href="#/">Dashboard</a>
                     </li>
                     <li class="active" ng-if="isAuthenticated()">
                         <a href="#/projects/my">My projects</a>
                     </li>
                     <li class="active" ng-if="isAdmin()">
-                        <a href="#/projects">Projects</a>
+                        <a href="#/projects">All Projects</a>
                     </li>
-
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" >
         <div ng-view/>
     </div>
 
