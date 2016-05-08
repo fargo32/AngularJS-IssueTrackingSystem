@@ -25,8 +25,8 @@ angular.module('issueTracker.controllers.issues', [])
         'issuesService',
         'projectsService',
         'notificationService',
-
-        function ($scope, $routeParams, commentsService, issuesService, projectsService, notificationService) {
+        '$rootScope',
+        function ($scope, $routeParams, commentsService, issuesService, projectsService, notificationService,$rootScope) {
 
             $scope.issueComment = {};
 
@@ -50,12 +50,12 @@ angular.module('issueTracker.controllers.issues', [])
                         projectsService.getProjectById(data.Project.Id)
                             .then(function success(data) {
                                 if (data.Lead.Id === JSON.parse(sessionStorage['currentUser']).Id) {
-                                    $scope.isLeadOfProject = true;
+                                    $rootScope.isLeadOfProject = true;
                                 } else {
-                                    $scope.isLeadOfProject = false;
+                                    $rootScope.isLeadOfProject = false;
                                 }
                             });
-
+console.log($rootScope.isLeadOfProject);
                     }, function error(err) {
                         notificationService.showError('Unable to get issue', err);
                     });

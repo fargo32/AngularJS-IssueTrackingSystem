@@ -113,7 +113,8 @@ angular.module('issueTracker.controllers.projects', [])
         '$routeParams',
         'projectsService',
         'notificationService',
-        function ($scope, $routeParams, projectsService, notificationService) {
+        '$rootScope',
+        function ($scope, $routeParams, projectsService, notificationService,$rootScope) {
 
             projectsService.getProjectById($routeParams.id)
                 .then(function success(data) {
@@ -121,11 +122,11 @@ angular.module('issueTracker.controllers.projects', [])
                     $scope.currentProject = data;
 
                     if (data.Lead.Id === JSON.parse(sessionStorage['currentUser']).Id) {
-                        $scope.isLeadOfProject = true;
+                        $rootScope.isLeadOfProject = true;
                     } else {
-                        $scope.isLeadOfProject = false;
+                        $rootScope.isLeadOfProject = false;
                     }
-
+        console.log($rootScope.isLeadOfProject);
                     $scope.currentProjectLabels = [];
                     $scope.currentProjectPriorities = [];
 

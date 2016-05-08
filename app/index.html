@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body cz-shortcut-listen="true" ng-controller="MainCtrl">
+<body cz-shortcut-listen="true" ng-controller="MainCtrl" >
 
     <div class="navbar navbar-default navbar-fixed-top">
 
         <div class="container">
             <div class="navbar-header">
-                <a href="#/" class="navbar-brand">Issue Tracking System</a>
+                <a class="navbar-brand" ng-cloack ng-show="isAuthenticated()">Hello {{loggedUserUsername().userName}}</a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
