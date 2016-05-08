@@ -80,6 +80,15 @@ angular.module('issueTracker.controllers.issues', [])
                     });
             };
 
+            $scope.changeStatus = function(statusId) {
+                issuesService.changeStatus($routeParams.id, statusId)
+                    .then(function() {
+                        $scope.getIssueById();
+                    }, function error(err) {
+                        notificationService.showError('Unable to change status', err);
+                    });
+            };
+
             $scope.getIssueById();
             $scope.getIssueComments();
         }])

@@ -26,15 +26,13 @@
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
-
-                    <li>
-                        <a href="#/">Home</a>
-                    </li>
-                    <li>
+                    <li class="active">
                         <a href="#/">Dashboard</a>
                     </li>
-                    <li class="active" ng-if="isAuthenticated()"><a href="#/projects/my">My projects</a></li>
-                    <li>
+                    <li class="active" ng-if="isAuthenticated()">
+                        <a href="#/projects/my">My projects</a>
+                    </li>
+                    <li class="active" ng-if="isAdmin()">
                         <a href="#/projects">Projects</a>
                     </li>
 

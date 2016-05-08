@@ -30,7 +30,7 @@
                 </li>
             </ul>
             <div ng-issue-comments></div>
-            <div ng-issue-comment-form></div>
+            <div ng-if="isAdmin() || isLeadOfProject" ng-issue-comment-form></div>
         </div>
     </div>
 </div>

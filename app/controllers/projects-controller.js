@@ -28,21 +28,21 @@ angular.module('issueTracker.controllers.projects', [])
                 templateUrl: 'views/projects/project.html',
                 controller: 'ViewProjectController',
                 access: {
-                    requiresAdmin: true
+                    requiresLogin: true
                 }
             })
             .when('/projects/:id/edit', {
                 templateUrl: 'views/projects/edit-project.html',
                 controller: 'EditProjectController',
                 access: {
-                    requiresAdmin: true
+                    requiresLogin: true
                 }
             })
             .when('/projects/:id/add-issue', {
                 templateUrl: 'views/issues/add-issue.html',
                 controller: 'AddIssueToProjectController',
                 access: {
-                    requiresAdmin: true
+                    requiresLogin: true
                 }
             })
 
