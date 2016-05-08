@@ -28,4 +28,16 @@ angular.module('issueTracker.directives.templates', [])
             restrict: 'A',
             templateUrl: 'views/issues/issue-filter.html'
         }
+    }])
+    .directive('ngIssueCommentForm', [function() {
+        return {
+            restrict: 'A',
+            templateUrl: 'views/issues/issue-comment-add-form.html'
+        }
+    }])
+    .directive('ngIssueComments', [function() {
+        return {
+            restrict: 'A',
+            templateUrl: 'views/issues/issue-comments.html'
+        }
     }]);

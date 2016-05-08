@@ -21,12 +21,16 @@ angular.module('issueTracker.controllers.issues', [])
     .controller('ViewIssueController', [
         '$scope',
         '$routeParams',
+        'commentsService',
         'issuesService',
         'projectsService',
         'notificationService',
-        function ($scope, $routeParams, issuesService, projectsService, notificationService) {
 
-            $scope.getIssueById = function() {
+        function ($scope, $routeParams, commentsService, issuesService, projectsService, notificationService) {
+
+            $scope.issueComment = {};
+
+            $scope.getIssueById = function () {
                 issuesService.getIssueById($routeParams.id)
                     .then(function success(data) {
                         $scope.currentIssue = data;
@@ -57,10 +61,27 @@ angular.module('issueTracker.controllers.issues', [])
                     });
             };
 
-            //todo Add status and comments
+            $scope.getIssueComments = function () {
+                commentsService.getIssueComments($routeParams.id)
+                    .then(function success(data) {
+                        $scope.issueComments = data;
+                    }, function error(err) {
+                        notificationService.showError('Unable to get issue comments', err);
+                    });
+            };
 
+            $scope.addComment = function (comment) {
+                commentsService.addCommentToIssue($routeParams.id, comment)
+                    .then(function success(data) {
+                        $scope.issueComments = data;
+                        $scope.issueComment.Text = '';
+                    }, function error(err) {
+                        notificationService.showError('Failed adding comment', err);
+                    });
+            };
 
             $scope.getIssueById();
+            $scope.getIssueComments();
         }])
 
     .controller('EditIssueController', [

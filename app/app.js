@@ -14,6 +14,7 @@ angular.module('issueTracker', [
         'issueTracker.services.notifier',
         'issueTracker.services.issues',
         'issueTracker.services.projects',
+        'issueTracker.services.comments',
         'issueTracker.directives.templates'
     ])
 
